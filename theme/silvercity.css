@@ -1,0 +1,78 @@
+div.code-block {
+  background: #EEEEEE;
+  border: 1px solid #999999;
+  padding: 3px;
+  width: 100%;
+  margin-left: 5px;
+  margin-top: 0.5em;
+  font-family: courier;
+  font-weight: bold;
+}
+
+/* ---------- Python code ---------- */
+
+span.p_identifier {
+  color: black;
+}
+
+span.p_word {
+  color: purple;
+}
+
+span.p_default {
+  color: black;
+}
+
+span.p_operator {
+  color: black;
+}
+
+span.p_character {
+  color: brown;
+}
+
+span.p_triplesingle {
+  color: brown;
+}
+
+span.p_tripledouble {
+  color: brown;
+}
+
+span.p_defname {
+  color: blue;
+}
+
+span.p_classname {
+  color: blue;
+}
+
+span.p_commentline {
+  color: pink;
+}
+
+/* ---------- XML code ---------- */
+
+span.h_tag {
+  color: blue;
+}
+
+span.h_attribute {
+  color: purple;
+}
+
+span.h_doublestring {
+  color: brown;
+}
+
+span.h_singlestring {
+  color: brown;
+}
+
+span.h_default {
+  color: black;
+}
+
+span.h_other {
+  color: black;
+}

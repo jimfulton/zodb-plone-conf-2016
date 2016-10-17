@@ -1,0 +1,714 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils 0.12: http://docutils.sourceforge.net/" />
+<meta name="version" content="S5 1.1" />
+<title>ZODB Happenings</title>
+<style type="text/css">
+
+/* ----[ Custom Definitions ]---------------------------------------------- */
+
+/* standard SilverCity style definitions */
+@import url(silvercity.css);
+
+div.code-block {
+  font-size: 70%;
+  margin-bottom: 0.5em;
+}
+
+/* ----[ Default Definitions ]---------------------------------------------- */
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+ border: 0;
+}
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+dl.docutils dt {
+  font-weight: bold }
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin-left: 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: sans-serif;
+}
+
+h1 {
+  margin-top: 1.5em;
+  margin-bottom: 0;
+  font-size: 130%;
+}
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em
+}
+
+h1.title {
+  font-size: 160%;
+  text-align: center;
+}
+
+h2.subtitle {
+  text-align: center;
+}
+
+hr.docutils {
+  width: 75% }
+
+img.align-left {
+  clear: left }
+
+img.align-right {
+  clear: right }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em;
+}
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+/* p { */
+/*   margin-top: 0; */
+/*   margin-bottom: 0 ! important; */
+/*   padding-top: 0 ! important; */
+/*   padding-bottom: 0 ! important; */
+/* } */
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50%;
+}
+
+p.caption {
+  font-style: italic;
+}
+
+p.credits {
+  font-style: italic;
+  font-size: smaller;
+}
+
+p.first {
+  display: inline;
+}
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold;
+  font-size: larger;
+  color: maroon;
+  text-align: center;
+}
+
+p.sidebar-title {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: larger;
+}
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold;
+}
+
+pre.address {
+  margin-bottom: 0;
+  margin-top: 0;
+  font-family: serif;
+  font-size: 100%;
+}
+
+pre.literal-block, pre.doctest-block {
+  background: #EEEEEE;
+  border: 1px solid #999999;
+  padding: 3px;
+  width: 80%;
+  margin-left: 5px;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  font-family: courier;
+  font-weight: bold;
+  font-size: 75%;
+}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre;
+}
+
+span.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold;
+  text-align: left;
+  white-space: nowrap;
+  padding-left: 0;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100%
+}
+
+tt.docutils {
+  font-size: 120%;
+  font-weight: bold;
+  /* background-color: #eeeeee; */
+}
+
+ul.auto-toc {
+  list-style-type: none;
+}
+
+ul {
+  padding-left: 0.5em;
+}
+
+ol {
+  padding-left: 1.5em;
+}
+
+ul ul {
+  padding-left: 1em;
+}
+
+ul li {
+  list-style: none;
+}
+
+ul li:before {
+  margin-left: -0.58em;
+  vertical-align: 5%;
+  content: "\2022 \0020 \0020"
+}
+
+ul ul li:before {
+  vertical-align: 10%;
+  text-indent: -0.43em;
+  content: "\00BB \0020 \0020"
+}
+
+.huge {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 120%;
+}
+.big {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 105%;
+}
+.small {
+  font-size: 90%;
+}
+.tiny {
+  font-size: 60%;
+}
+.huge tt, .big tt, .small tt, .tiny tt {
+  font-size: 115%;
+}
+.huge pre, .big pre, .small pre, .tiny pre {
+  font-size: 115%;
+}
+
+div.handout p {
+  margin-bottom: 0.7em ! important;
+}
+
+p.handout {
+  margin-bottom: 0.7em ! important;
+}
+
+</style>
+<!-- configuration parameters -->
+<meta name="defaultView" content="slideshow" />
+<meta name="controlVis" content="hidden" />
+<!-- style sheet links -->
+<script src="file:///Users/jim/p/presentations/zodb-plone-conf-2016/theme/slides.js" type="text/javascript"></script>
+<link rel="stylesheet" href="file:///Users/jim/p/presentations/zodb-plone-conf-2016/theme/slides.css"
+      type="text/css" media="projection" id="slideProj" />
+<link rel="stylesheet" href="file:///Users/jim/p/presentations/zodb-plone-conf-2016/theme/outline.css"
+      type="text/css" media="screen" id="outlineStyle" />
+<link rel="stylesheet" href="file:///Users/jim/p/presentations/zodb-plone-conf-2016/theme/print.css"
+      type="text/css" media="print" id="slidePrint" />
+<link rel="stylesheet" href="file:///Users/jim/p/presentations/zodb-plone-conf-2016/theme/opera.css"
+      type="text/css" media="projection" id="operaFix" />
+
+<style type="text/css">
+#currentSlide {display: none;}
+</style>
+</head>
+<body>
+<div class="layout">
+<div id="controls"></div>
+<div id="currentSlide"></div>
+<div id="header">
+
+</div>
+<div id="footer">
+<h1>ZODB Happenings</h1>
+
+</div>
+</div>
+<div class="presentation">
+<div class="slide" id="slide0">
+<h1 class="title">ZODB Happenings</h1>
+
+<!-- Definitions of interpreted text roles (classes) for S5/HTML data. -->
+<!-- This data file has been placed in the public domain. -->
+<!-- Colours
+======= -->
+<!-- Text Sizes
+========== -->
+<!-- Display in Slides (Presentation Mode) Only
+========================================== -->
+<!-- Display in Outline Mode Only
+============================ -->
+<!-- Display in Print Only
+===================== -->
+<!-- Display in Handout Mode Only
+============================ -->
+<!-- Incremental Display
+=================== -->
+<div class="line-block">
+<div class="line">Jim Fulton</div>
+<div class="line"><a class="reference external" href="mailto:jim&#64;jimfulton.info">jim&#64;jimfulton.info</a></div>
+<div class="line"><br /></div>
+<div class="line">Plone Digital Experience Conference</div>
+<div class="line">October 18, 2016</div>
+</div>
+
+</div>
+<div class="slide" id="i-quit-my-job-to-work-on-zodb">
+<h1>I quit my job to work on ZODB</h1>
+<p>ZeroDB made this possible by contracting with me to make enhancements
+to ZODB and to work on their ZODB-based application.</p>
+<p>ZeroDB decided to focus on their Hadoop-based product for now.</p>
+<p>I plan to offer ZODB support, consulting development, and training.
+If you're interested, let me know.</p>
+</div>
+<div class="slide" id="zerodb">
+<h1>ZeroDB</h1>
+<p>Two products:</p>
+<ul class="simple">
+<li>Database that stores data encrypted at rest.</li>
+<li>Big-data analysis with Hadoop, where data at rest are encrypted.</li>
+</ul>
+<p>I worked on the first product. :)</p>
+</div>
+<div class="slide" id="zeo-on-ayncio">
+<h1>ZEO on Ayncio</h1>
+<p>ZEO was build on top of asyncore, the original Python Asynchronous I/O
+framework.</p>
+<p>Asyncore has lots of issues and has been deprecated.</p>
+<p>I rewrote most of ZEO to use asyncio instead.</p>
+<p>This was an opportunity to clean up and especially simplify many things.</p>
+<p>Performance improvements (in most cases), especially when there are
+multiple clients and especially when writing. <a class="reference external" href="http://j1m.me/zp1">http://j1m.me/zp1</a></p>
+</div>
+<div class="slide" id="zodb-s-api-is-inherently-synchronous">
+<h1>ZODB's API is inherently synchronous</h1>
+<p>ZODB is an object-oriented database that seeks to provide
+<strong>transparent</strong> persistence.  ZEO tries to provide the illusion that
+your entire database is in memory.</p>
+<p>ZEO has always used an asynchronous networking library, but that's an
+implementation detail, that might change in the future.</p>
+</div>
+<div class="slide" id="threads-are-awesome">
+<h1>Threads are awesome :)</h1>
+<p>There's a lot of FUD around threads. Concurrency is hard.  It's hard
+whether or not you use threads.</p>
+<p>Threads can be a lot easier to reason about, especially if you can
+<strong>avoid shared mutable data</strong>.</p>
+<p>They're even fashionable: Erlang processes, Go-routines, Akka Actors,
+Rust threads, ...</p>
+</div>
+<div class="slide" id="javascript">
+<h1>JavaScript?</h1>
+<p>IMO, the sanest way to run ZODB in a browser:</p>
+<ul class="simple">
+<li>Run ZODB (a client or a local storage) in a web-worker</li>
+<li>Provide an asynchronous API to your UI code.</li>
+</ul>
+<p>Of course, this assumes that ZODB has been ported to JS, which it
+hasn't. :)</p>
+<p>If I were to approach this, I'd do a JS rewrite. I wouldn't use a
+Python-&gt;JS compiler.</p>
+<p>In interesting post on JS databases and asynchronous APIs:
+<a class="reference external" href="http://bit.ly/2dWxRr5">http://bit.ly/2dWxRr5</a></p>
+</div>
+<div class="slide" id="prefetch">
+<h1>Prefetch</h1>
+<p>Especially on startup, it can take a long time to get objects loaded.</p>
+<p>(You can often mitigate this using a <strong>ZEO client cache</strong>.)</p>
+<p>The new ZODB prefetch API:</p>
+<pre class="literal-block">
+conn.prefetch(oid1, oid2, ...)
+
+conn.prefetch(ghost1, ghost2, ...)
+</pre>
+<p>Prefetching starts loads asynchronously, so that objects are far more
+likely to be available locally when you need them.</p>
+</div>
+<div class="slide" id="zeo-ssl">
+<h1>ZEO SSL</h1>
+<ul class="simple">
+<li>Encryption (of course)</li>
+<li>Certificate authentication (mainly for authenticating services)</li>
+</ul>
+<p>Could provide the basis for finer-grained authentication:</p>
+<ul class="simple">
+<li>Per user certificates</li>
+<li>Per-user user names and passwords over SSL</li>
+</ul>
+<p>ZeroDB does both of these.</p>
+</div>
+<div class="slide" id="client-side-conflict-resolution">
+<h1>Client-side conflict resolution</h1>
+<p>ZeroDB stored data encrypted, so the server couldn't perform conflict
+resolution.</p>
+<p>So we added a server option to let clients do conflict resolution.</p>
+<p>Pros</p>
+<ul class="simple">
+<li>Works with encrypted data.</li>
+<li>No longer need custom classes on the server for conflict resolution.</li>
+<li>Reduces server load.</li>
+<li>Opens the door to non-Python servers.</li>
+</ul>
+<p>Cons</p>
+<ul class="simple">
+<li>Increases round trips for conflicting transactions.</li>
+<li>Doesn't support conflict-resolution in undo.</li>
+</ul>
+</div>
+<div class="slide" id="fun-opportunity">
+<h1>Fun opportunity</h1>
+<p>With conflict resolution on the client, you could potentially do a
+much better job of resolving conflicts:</p>
+<ul class="simple">
+<li>Can work with objects, not just state.</li>
+<li>Can work with all of the objects in the transaction at once, so, for
+example, one might be able to resolve things like BTree bucket
+splits.</li>
+</ul>
+<p>I'd like to <strong>move</strong> responsibility for <strong>conflict resolution</strong> up in the stack
+<strong>to ZODB</strong>.</p>
+</div>
+<div class="slide" id="object-level-locks">
+<h1>Object-level locks</h1>
+<p>Currently ZEO locks the database for writes during the <em>second phase</em>
+of the commit process.</p>
+<p>After voting, ZEO has to wait for clients to make final decisions
+while that lock is held.</p>
+<p>It should be possible to allow multiple non-conflicting transactions
+to be in-flight at once. NEO does this.</p>
+</div>
+<div class="slide" id="object-level-lock-attempt-for-zeo">
+<h1>Object-level-lock attempt for ZEO</h1>
+<ul class="simple">
+<li>Got it working.</li>
+<li>It didn't provide a performance win, except when clients were
+connected over slow links.</li>
+</ul>
+<p>A big issue is that it's easy to get ZEO servers to be CPU-bound,
+especially when running benchmarks. :)</p>
+<ul class="simple">
+<li>Partly, the extra computations for managing object-level locks
+offset the benefits, but,</li>
+<li>I think the main issue was that the server was too loaded to respond
+quickly even when locks wouldn't block it.</li>
+</ul>
+</div>
+<div class="slide" id="interesting-zerodb-experiments">
+<h1>Interesting ZeroDB experiments</h1>
+<p><a class="reference external" href="https://github.com/zerodb/zerodb">https://github.com/zerodb/zerodb</a></p>
+<ul class="simple">
+<li>Multi-tenant databases.<ul>
+<li>database split into multiple virtual databases, one per
+user.</li>
+<li>Separate root objects.</li>
+<li>Access control prevents users from seeing each other's records
+(in addition to encryption).</li>
+<li>Super user can CRUD users/sub-databases</li>
+</ul>
+</li>
+<li>Certificate and password-based authentication.</li>
+</ul>
+</div>
+<div class="slide" id="relstorage-neo-zeo-unification">
+<h1>RelStorage, NEO, ZEO unification</h1>
+<ul class="simple">
+<li>ZODB uses a simpler, cleaner implementation of Multi-Version
+concurrency control based on what NEO does.</li>
+<li>This model fits RelStorage better as well.</li>
+<li>RelStorage is no-longer a special case.<ul>
+<li>Other ZODB storages are now <em>adapted</em> to provide an API similar to
+RelStorage's and the adapter employs the NEO-inspired.</li>
+</ul>
+</li>
+</ul>
+<p>(Oh, BTW, RelStorage has a maintainer again!)</p>
+</div>
+<div class="slide" id="inconsistency-between-zeo-clients">
+<h1>Inconsistency between ZEO clients</h1>
+<p>Scenario:</p>
+<ul class="simple">
+<li>Object added on one client in response to a web request.</li>
+<li>Next web request hits a different client and the object isn't there.</li>
+</ul>
+<p>This was a potential problem for RelStorage in the past depending on the
+poll-interval setting.</p>
+</div>
+<div class="slide" id="why-inconsistent-data">
+<h1>Why inconsistent data?</h1>
+<ul class="simple">
+<li>Each client: has a consistent view of the database as of a point on
+time,</li>
+<li>But different clients see the database as of different times
+(because networks aren't instantaneous. :))</li>
+</ul>
+</div>
+<div class="slide" id="forced-synchronization">
+<h1>Forced synchronization</h1>
+<ul class="simple">
+<li>ZEO has a new <tt class="docutils literal"><span class="pre">server-sync</span></tt> option to force a server round-trip
+before each transaction.</li>
+<li>NEO always works this way.</li>
+<li>RelStorage now polls at the start of each transaction.</li>
+</ul>
+<p>Significant cost, but worth it for many applications.</p>
+</div>
+<div class="slide" id="post-zerodb">
+<h1>Post ZeroDB</h1>
+<ul class="simple">
+<li>Documentation!</li>
+<li>File-storage 2 and byteserver</li>
+<li>transaction-manager.run</li>
+<li>???</li>
+</ul>
+</div>
+<div class="slide" id="documentation">
+<h1>Documentation</h1>
+<ul>
+<li><p class="first">at <a class="reference external" href="http://zodb.org">http://zodb.org</a></p>
+</li>
+<li><p class="first">More extensive than ever before</p>
+<p>But more would be good.</p>
+<ul class="simple">
+<li>Packing/operational considerations</li>
+<li>Multi-databases</li>
+<li>...</li>
+</ul>
+</li>
+<li><p class="first">Executable tests thanks to Manuel.</p>
+</li>
+</ul>
+</div>
+<div class="slide" id="file-storage2">
+<h1>File-storage2</h1>
+<ul class="simple">
+<li>Learns lessons from FileStorage<ul>
+<li>FileStorage worked out much better than I ever imagined.</li>
+<li>Remove unneeded features (versions and back-pointers)</li>
+</ul>
+</li>
+<li>Multiple files.</li>
+<li>Wildly less disruptive packing (because packing doesn't have to deal
+with current data).</li>
+<li>Indexes mixed between memory and memory-mapped files.</li>
+<li>Requires external garbage collector.</li>
+</ul>
+</div>
+<div class="slide" id="byteserver">
+<h1>Byteserver</h1>
+<p>Alternate ZEO server implementation.</p>
+<ul class="simple">
+<li>Rust<ul>
+<li>Very fast (faster than Go for the most part)</li>
+<li>Stack-based memory management.</li>
+<li>No GIL :)</li>
+</ul>
+</li>
+<li>Includes a file-storage 2 implementation.</li>
+<li>New API between server and storage, for speed rather than plugability.</li>
+<li>Object-level locks.</li>
+<li>Nearly as easy to set up and operate as ZEO.</li>
+</ul>
+</div>
+</div>
+</body>
+</html>
