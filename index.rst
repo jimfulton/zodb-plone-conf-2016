@@ -8,9 +8,11 @@ ZODB Happenings
 | jim@jimfulton.info
 |
 | Plone Digital Experience Conference
-| October 18, 2016
+| October 19, 2016
+|
+| http://jimfulton.info/talks/zodb-plone-conf-2016/
 
-I quit my job to work on ZODB
+I'm working 100% on ZODB
 =============================
 
 ZeroDB made this possible by contracting with me to make enhancements
@@ -35,39 +37,25 @@ I worked on the first product. :)
 ZEO on Ayncio
 =============
 
-ZEO was build on top of asyncore, the original Python Asynchronous I/O
-framework.
+ZEO 4 used asyncore, the original Python Asynchronous I/O framework.
 
 Asyncore has lots of issues and has been deprecated.
 
-I rewrote most of ZEO to use asyncio instead.
+Rewrote most of ZEO to use asyncio instead.
 
-This was an opportunity to clean up and especially simplify many things.
+Opportunity to clean up and especially simplify many things.
 
-Performance improvements (in most cases), especially when there are
-multiple clients and especially when writing. http://j1m.me/zp1
+Performance improvements (in most cases). http://j1m.me/zp1
 
-ZODB's API is inherently synchronous
+ZODB's API is synchronous
 ====================================
 
 ZODB is an object-oriented database that seeks to provide
-**transparent** persistence.  ZEO tries to provide the illusion that
+**transparent** persistence.  ZODB tries to provide the illusion that
 your entire database is in memory.
 
 ZEO has always used an asynchronous networking library, but that's an
 implementation detail, that might change in the future.
-
-Threads are awesome :)
-======================
-
-There's a lot of FUD around threads. Concurrency is hard.  It's hard
-whether or not you use threads.
-
-Threads can be a lot easier to reason about, especially if you can
-**avoid shared mutable data**.
-
-They're even fashionable: Erlang processes, Go-routines, Akka Actors,
-Rust threads, ...
 
 JavaScript?
 ===========
@@ -78,13 +66,11 @@ IMO, the sanest way to run ZODB in a browser:
 
 - Provide an asynchronous API to your UI code.
 
-Of course, this assumes that ZODB has been ported to JS, which it
-hasn't. :)
+Assumes that ZODB has been ported to JS. :)
 
-If I were to approach this, I'd do a JS rewrite. I wouldn't use a
-Python->JS compiler.
+(I wouldn't use a Python->JS compiler.)
 
-In interesting post on JS databases and asynchronous APIs:
+An interesting post on JS databases and asynchronous APIs:
 http://bit.ly/2dWxRr5
 
 Prefetch
@@ -124,7 +110,10 @@ Client-side conflict resolution
 ZeroDB stored data encrypted, so the server couldn't perform conflict
 resolution.
 
-So we added a server option to let clients do conflict resolution.
+So I added a server option to let clients do conflict resolution.
+
+Client-side conflict resolution
+===============================
 
 Pros
 
@@ -135,6 +124,9 @@ Pros
 - Reduces server load.
 
 - Opens the door to non-Python servers.
+
+Client-side conflict resolution
+===============================
 
 Cons
 
@@ -198,6 +190,8 @@ https://github.com/zerodb/zerodb
 
   - Separate root objects.
 
+  - Separate invalidations
+
   - Access control prevents users from seeing each other's records
     (in addition to encryption).
 
@@ -235,8 +229,8 @@ poll-interval setting.
 Why inconsistent data?
 ======================
 
-- Each client: has a consistent view of the database as of a point on
-  time,
+- Each client: has a **consistent** view of the database as of a **point in
+  time**,
 
 - But different clients see the database as of different times
   (because networks aren't instantaneous. :))
@@ -281,6 +275,8 @@ Documentation
 
 - Executable tests thanks to Manuel.
 
+- You can help! Request missing docs.
+
 File-storage2
 ==============
 
@@ -319,3 +315,52 @@ Alternate ZEO server implementation.
 - Object-level locks.
 
 - Nearly as easy to set up and operate as ZEO.
+
+Byteserver performance
+======================
+
+Initial tests promising.
+
+Need more testing and maybe optimization.
+
+Byteserver work remaining
+=========================
+
+- Performance
+
+- Tests (have smoke tests now)
+
+- Many features, including: packing, replication, full storage API, ...
+
+ZODB Ideas
+==========
+
+- More speed
+
+- More documentation
+
+- OO conflict resolution
+
+- Ability to subscribe to object updates
+
+- Integration with external indexes, like Elastic Search
+
+- Persistent pandas data frames
+
+- Docker images
+
+- ZEO Authorization, maybe modeled on Unix FS.
+
+- Persistent classes?
+
+- Other languages? (JS, Ruby, Scala?)
+
+- ...
+
+Questions/comments?
+===================
+
+| jim@jimfulton.info
+| http://jimfulton.info/talks/zodb-plone-conf-2016/
+
+.. image:: Survey-App-Reminder-Slide.png
