@@ -1,7 +1,7 @@
 .. include:: <s5defs.txt>
 
 ============================
-ZODB Happenings
+ZODB Conversation
 ============================
 
 | Jim Fulton
@@ -10,7 +10,7 @@ ZODB Happenings
 | Plone Digital Experience Conference
 | October 19, 2016
 |
-| http://jimfulton.info/talks/zodb-plone-conf-2016/
+| http://j1m.me/plone16
 
 I'm working 100% on ZODB
 =============================
@@ -23,6 +23,40 @@ ZeroDB decided to focus on their Hadoop-based product for now.
 I plan to offer ZODB support, consulting development, and training.
 If you're interested, let me know.
 
+Poll: ZODB storages
+===================
+
+How many folks use:
+
+- NEO
+
+- RelStorage
+
+- ZEO
+
+  - ZRS?
+
+Poll: Search
+=============
+
+- Catalog in ZODB
+
+- External index: Elastic Search, SOLR, RDBMS, ...
+
+- Don't use an index (other than a BTree here and there).
+
+Poll: Pain Points
+=================
+
+- Database performance
+
+- Conflicts
+
+- Indexing
+
+- Rules of persistence?
+
+
 ZeroDB
 ======
 
@@ -34,8 +68,8 @@ Two products:
 
 I worked on the first product. :)
 
-ZEO on Ayncio
-=============
+ZEO on asyncio
+==============
 
 ZEO 4 used asyncore, the original Python Asynchronous I/O framework.
 
@@ -56,6 +90,37 @@ your entire database is in memory.
 
 ZEO has always used an asynchronous networking library, but that's an
 implementation detail, that might change in the future.
+
+Async server with thread pools
+===============================================
+
+- Asyncore handled I/O.
+
+- Application logic in thread pools.
+
+- Challenge is waking up async event loop when output is ready.
+
+  Shane Hathaway added a cool hack to ZServer avoid having to wake up
+  the event loop.
+
+Keep transactions short
+=======================
+
+- The longer the transaction, the greater likelihood of conflicts.
+
+- Connections are expensive resources
+
+- Do long-running work asynchronously.
+
+  - But be careful about handoff.
+
+Consider using content-aware LBs
+===========================================
+
+For large applications, the "working set" may not fit in memory.
+
+If requests are correlated with content (e.g. site domain), you can
+divide the working set into subsets that do fit in memory.
 
 JavaScript?
 ===========
@@ -347,7 +412,14 @@ ZODB Ideas
 
 - Persistent pandas data frames
 
-- Docker images
+ZODB Ideas
+==========
+
+- Jasonic API?
+
+- ZRS auto fail-over via a leader-election protocol.
+
+- Docker images (although there are many of those, although Python 2? Python 3?)
 
 - ZEO Authorization, maybe modeled on Unix FS.
 
@@ -360,7 +432,7 @@ ZODB Ideas
 Questions/comments?
 ===================
 
-| jim@jimfulton.info
+| http://j1m.me/plone16
 | http://jimfulton.info/talks/zodb-plone-conf-2016/
 
 .. image:: Survey-App-Reminder-Slide.png
